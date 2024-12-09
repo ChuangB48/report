@@ -1,1 +1,2 @@
 # report
+[start](lobby.md)
