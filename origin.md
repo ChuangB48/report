@@ -3,18 +3,18 @@
     #include <windows.h>
     using namespace std;
     vector <pair<char,pair<int,int>>> p;
-    int score=0,health=1000;
-    bool last[256]={false};
+    int score=0,health=5000;
+    bool last[256]={false},f=false;;
     void press(){
-        while(true){
+        while(!f){
             for(int a=0;a<256;a++){
                 auto state=GetAsyncKeyState(a);
                 if((state&0x8000)&&!last[a]){
-                    auto button=MapVirtualKey(a,    MAPVK_VK_TO_CHAR);
+                    auto button=MapVirtualKey(a,MAPVK_VK_TO_CHAR);
                     int psize=p.size();
                     bool z=false;
-                    for(int b=0;b<psize;b++){
-                        if(p[b].second.second>=33&&p[b].    second.second<=35&&p[b].    first==char(button)){
+                    for(int b=psize-1;b>=0;b--){
+                        if(p[b].second.second>=33&&p[b].second.second<=35&&p[b].first==char(button)){
                             p.erase(p.begin()+b);
                             z=true;
                             break;
@@ -45,11 +45,11 @@
                 for(int b=0;b<psize;b++){
                     if(p[b].second.second==a){
                         z=true;
-                        for(int c=0;c<p[b].second.first;c   ++){
+                        for(int c=0;c<p[b].second.first;c++){
                             output+='-';
                         }
                         output+=p[b].first;
-                        for(int c=p[b].second.first+1;  c<145;c++){
+                        for(int c=p[b].second.first+1;c<145;c++){
                             output+="-";
                         }
                     }
@@ -63,7 +63,7 @@
             else{
                 for(int b=0;b<psize;b++){
                     if(p[b].second.second==a){
-                        for(int c=0;c<p[b].second.first;c   ++){
+                        for(int c=0;c<p[b].second.first;c++){
                             output+=' ';
                         }
                         output+=p[b].first;
@@ -76,7 +76,7 @@
             score=0;
         }
         system("cls");
-        cout << "health:" << health << '\n' << "score:"     << score << '\n' << output;
+        cout << "health:" << health << '\n' << "score:" << score << '\n' << output;
         Sleep(150);
         health--;
     }
@@ -98,62 +98,55 @@
                 }
             }
             if(rand()%3==0){
-                p.push_back(make_pair(char(rand()%26+65),   make_pair(rand()%145,0)));
+                p.push_back(make_pair(char(rand()%26+65),make_pair(rand()%145,0)));
             }
             if(health<=0){
                 system("cls");
                 if(score<0){
                     score=0;
                 }
-                cout << "score:" << score;
+                f=true;
                 break;
             }
             screen();
         }
     }
     void start(){
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "                                   _____       _____       _____      __         __"    << "\n";
-        cout << "                                 |         \\     |     \\     |         /          /" <<  "\n";
-        cout <<     "                                 |     |     |       |     |         |          |" << "\n";
-        cout <<     "                                 |     /     |       /     |         \\          \\" << "\n";
-        cout << "                                 | ----/      |----/      |-----      --         --"    << "\n";
-        cout <<     "                                 |           | \\          |              \\          \\" <<    "\n";
-        cout <<     "                                 |           |     \\         |              |          |" << "\n";
-        cout <<     "                                 |           |     \\        |              /          /" << "\n";
-        cout <<     "                                 |           |     \\       |-----      --         --" << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout <<     "                                                    _____                    ___________     _____     _____" << "\n";
-        cout <<     "                                                   |         |   \\       |          |         |         |     \\"  << "\n";
-        cout <<     "                                                   |         |   \\      |          |         |         |     |"   << "\n";
-        cout <<     "                                                   |         |   \\     |          |         |         |     /" <<    "\n";
-        cout <<     "                                                   |-----    |   \\    |          |         |    -----    |----/" << "\n";
-        cout <<     "                                                   |         |       \\   |          |         |         |\\" << "\n";
-        cout <<     "                                                   |         |       \\  |          |         |         | \\" << "\n";
-        cout <<     "                                                   |         |       \\ |          |         |         |  \\" << "\n";
-        cout <<     "                                                   |-----    |       \\|          |         |    -----    |   \\" << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
-        cout << "\n";
+        cout << "\n\n\n\n\n\n\n";
+        cout << "                                  _____       _____       _____      __         __\n";
+        cout << "                                 |     \\     |     \\     |         /          /\n";
+        cout << "                                 |     |     |     |     |         |          |\n";
+        cout << "                                 |     /     |     /     |         \\          \\\n";
+        cout << "                                 |----/      |----/      |-----      --         --\n";
+        cout << "                                 |           |\\          |              \\          \\\n";
+        cout << "                                 |           | \\         |              |          |\n";
+        cout << "                                 |           |  \\        |              /          /\n";
+        cout << "                                 |           |   \\       |-----      --         --\n";
+        cout << "\n\n\n";
+        cout << "                                                  _____                    ___________    _____        _____\n";
+        cout << "                                                 |         |\\       |          |         |         |      \\\n";
+        cout << "                                                 |         | \\      |          |         |         |     |    \n";
+        cout << "                                                 |         |  \\     |          |         |         |     /    \n";
+        cout << "                                                 |-----    |   \\    |          |         |-----    |----/ \n";
+        cout << "                                                 |         |    \\   |          |         |         |\\\n";
+        cout << "                                                 |         |     \\  |          |         |         | \\\n";
+        cout << "                                                 |         |      \\ |          |         |         |      \\\n";
+        cout << "                                                 |-----    |       \\|          |         |-----    |      \\\n";
+        cout << "\n\n\n\n";
         while (true){
             if(GetAsyncKeyState(0x0D)&0x8000){
                 system("cls");
                 play();
+                break;
             }
         }
     }
     int main() {
         start();
+        cout << "GameOver!\nScore:" << score << "\n";
+        system("pause");
         return 0;
     }
+
 
 [返回](lobby.md)
